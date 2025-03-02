@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-consumer
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: consumer
+  template:
+    metadata:
+      labels:
+        app: consumer
+    spec:
+      containers:
+        - name: consumer
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: "{ { include "consumer.myQueue" . } }"
+          env:
+            - name: RABBITMQ_URL
+              value: "{{ .Values.env.RABBITMQ_URL }}"
+            - name: RABBITMQ_HOST
+              value: "{ { .Values.rabbitmq.host } }"
+            - name: RABBITMQ_PORT
+              value: "{ { .Values.rabbitmq.port } }"
+            - name: RABBITMQ_USER
+              value: "{ { .Values.rabbitmq.username } }"
+            - name: RABBITMQ_PASSWORD
+              value: "{ { .Values.rabbitmq.password } }"
+            - name: QUEUE_NAME
+              value: "{ { .Values.queueName } }"
