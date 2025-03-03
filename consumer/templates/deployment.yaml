@@ -6,29 +6,27 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: consumer
+      app: {{ .Release.Name }}-consumer
   template:
     metadata:
       labels:
-        app: consumer
+        app: {{ .Release.Name }}-consumer
     spec:
       containers:
         - name: consumer
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
           envFrom:
             - configMapRef:
-                name: "{ { include "consumer.myQueue" . } }"
+                name: "{{ .Release.Name }}-consumer-config"
           env:
             - name: RABBITMQ_URL
               value: "{{ .Values.env.RABBITMQ_URL }}"
             - name: RABBITMQ_HOST
-              value: "{ { .Values.rabbitmq.host } }"
+              value: "{{ .Values.rabbitmq.host }}"
             - name: RABBITMQ_PORT
-              value: "{ { .Values.rabbitmq.port } }"
+              value: "{{ .Values.rabbitmq.port }}"
             - name: RABBITMQ_USER
-              value: "{ { .Values.rabbitmq.username } }"
+              value: "{{ .Values.rabbitmq.username }}"
             - name: RABBITMQ_PASSWORD
-              value: "{ { .Values.rabbitmq.password } }"
-            - name: QUEUE_NAME
-              value: "{ { .Values.queueName } }"
+              value: "{{ .Values.rabbitmq.password }}"

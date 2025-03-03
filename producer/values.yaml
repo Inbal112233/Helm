@@ -1,9 +1,9 @@
 replicaCount: 1
 
 image:
-  repository: inbal345/kubernetesproject
+  repository: inbal345/producer
   pullPolicy: IfNotPresent
-  tag: "producer.v1"
+  tag: "latest"
 
 service:
   type: ClusterIP
@@ -13,11 +13,11 @@ rabbitmq:
   host: "rabbitmq"
   port: "5672"
   username: "user"
-  password: "cmdTcGZJMnlvam9LSFhLRQ=="
+  password: "PMHRI8Ez3sskjXy7"
 
 
 env:
-  RABBITMQ_URL: "amqp://user:password@rabbitmq:5672/"
+  url: "amqp://user:password@rabbitmq:5672/"
 ingress:
   enabled: true
   className: nginx

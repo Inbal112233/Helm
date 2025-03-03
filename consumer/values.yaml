@@ -1,9 +1,9 @@
 replicaCount: 1
 
 image:
-  repository: inbal345/kubernetesproject
-  pullPolicy: IfNotPresent
-  tag: "consumer.v1"
+  repository: inbal345/consumer
+  pullPolicy: "IfNotPresent"
+  tag: "latest"
 
 service:
   type: ClusterIP
