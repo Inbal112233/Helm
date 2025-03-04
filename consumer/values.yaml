@@ -16,7 +16,7 @@ rabbitmq:
   password: "cmdTcGZJMnlvam9LSFhLRQ=="
 
 configmap:
-  queueName: "pc"
+  queueName: "my-queue"
 
 
 env:

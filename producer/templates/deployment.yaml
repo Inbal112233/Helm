@@ -28,4 +28,4 @@ spec:
             - name: RABBITMQ_PASSWORD
               value: "{{ .Values.rabbitmq.password }}"
             - name: QUEUE_NAME
-              value: "{{ .Values.queueName }}"
+              value: "{{ .Values.rabbitmq.queueName }}"
