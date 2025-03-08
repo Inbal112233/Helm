@@ -13,7 +13,7 @@ rabbitmq:
   host: "rabbitmq"
   port: "5672"
   username: "user"
-  password: "PMHRI8Ez3sskjXy7"
+  password: "UE1IUkk4RXozc3Nralh5Nw=="
   queueName: "my-queue"
 
 
