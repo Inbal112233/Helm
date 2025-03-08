@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: inbal345/producer
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: "latest"
 
 service:
