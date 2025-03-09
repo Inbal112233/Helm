@@ -18,11 +18,10 @@ rabbitmq:
   message: "Hello From Rabbit!"
   repeatCount: "20"
 
-producer:
-  messageIntervals: "20"
-
 env:
   url: "amqp://user:password@rabbitmq:5672/"
+  messageIntervals: "20"
+
 ingress:
   enabled: true
   className: nginx
