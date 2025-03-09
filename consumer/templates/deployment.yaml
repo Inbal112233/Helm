@@ -25,7 +25,7 @@ spec:
             - name: RABBITMQ_HOST
               value: "{{ .Values.rabbitmq.host }}"
             - name: RABBITMQ_PORT
-              value: "{{ .Values.rabbitmq.port }}"
+              value: {{ .Values.rabbitmq.port }}
             - name: RABBITMQ_USER
               value: "{{ .Values.rabbitmq.username }}"
             - name: RABBITMQ_PASSWORD
@@ -33,6 +33,6 @@ spec:
             - name: CONSUMER_QUEUE
               value: "{{ .Values.consumer.queueName }}"
             - name: METRICS_PORT
-              value: "{{ .Values.consumer.metricsPort }}"
+              value: {{ .Values.consumer.metricsPort }}
           ports:
-            - containerPort: "{ { .Values.consumer.metricsPort } }"
+            - containerPort: { { .Values.consumer.metricsPort } }
