@@ -10,7 +10,7 @@ service:
   port: 8081
 
 consumer:
-  metricsPort: 9422
+  metricsPort: "9422"
   queueName: "pc"
 
 rabbitmq:
@@ -24,7 +24,7 @@ configmap:
 
 
 env:
-  RABBITMQ_URL: "amqp://user:password@rabbitmq:5672/"
+  RABBITMQ_URL: "amqp://username:password@my-rabbitmq:5672/"
 
 ingress:
   enabled: true
