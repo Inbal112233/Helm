@@ -29,3 +29,5 @@ spec:
               value: "{{ .Values.rabbitmq.password }}"
             - name: QUEUE_NAME
               value: "{{ .Values.rabbitmq.queueName }}"
+            - name: PRODUCER_INTERVAL
+              value: "{{ .Values.producer.interval }}"

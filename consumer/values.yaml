@@ -9,12 +9,16 @@ service:
   type: ClusterIP
   port: 8081
 
+consumer:
+  metricsPort: 9422
+  queueName: "pc"
+
 rabbitmq:
-  host: "rabbitmq"
+  host: "my-rabbitmq"
   port: "5672"
   username: "user"
-  password: "UE1IUkk4RXozc3Nralh5Nw=="
-
+  password: "2VU5D1rt31"
+  queueName: "pc"
 configmap:
   queueName: "my-queue"
 

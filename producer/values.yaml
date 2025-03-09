@@ -10,12 +10,16 @@ service:
   port: 8080
 
 rabbitmq:
-  host: "rabbitmq"
+  host: "my-rabbitmq"
   port: "5672"
   username: "user"
-  password: "UE1IUkk4RXozc3Nralh5Nw=="
-  queueName: "my-queue"
+  password: "2VU5D1rt31"
+  queueName: "pc"
+  message: "Hello From Rabbit!"
+  repeatCount: "20"
 
+producer:
+  messageIntervals: "20"
 
 env:
   url: "amqp://user:password@rabbitmq:5672/"

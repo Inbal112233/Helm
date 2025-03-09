@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rabbitmq-test-pod
+spec:
+  containers:
+    - name: rabbitmq-tester
+      image: python:3.9-slim  # Or a smaller image with amqp utilities like python:3.9-slim and the pika library
+      command: ["/bin/sh", "-c"] #For running multiple commands
+      args:
+        - |
+          pip install pika
+          echo "Attempting to connect to RabbitMQ..."
+
+          PASSWORD=$(cat /etc/rabbitmq-creds/RABBITMQ_PASSWORD)  # Get password from Secret
+          python -c "import pika; credentials = pika.PlainCredentials('user', '$PASSWORD'); try: connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbitmq', credentials=credentials)); channel = connection.channel(); print('Connection Successful!'); connection.close(); except Exception as e: print(f'Connection Error: {e}')" 2>&1 | tee rabbitmq_output.log
+
+          echo "Connection attempt finished. Check rabbitmq_output.log for details."
+          sleep 30
+
+      volumes:
+        - name: rabbitmq-creds
+          secret:
+            secretName: rabbitmq-test-credentials
+      restartPolicy: Never # Important: Don't keep this pod running unnecessarily
