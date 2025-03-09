@@ -33,6 +33,6 @@ spec:
             - name: CONSUMER_QUEUE
               value: "{{ .Values.consumer.queueName }}"
             - name: METRICS_PORT
-              value: {{ .Values.consumer.metricsPort }}
+              value: "{{ .Values.consumer.metricsPort }}"
           ports:
-            - containerPort: { { .Values.consumer.metricsPort } }
+            - containerPort: {{ .Values.consumer.metricsPort }}
