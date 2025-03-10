@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: inbal345/producer
+  repository: inbal345/releaseproducer
   pullPolicy: Always
   tag: "latest"
 

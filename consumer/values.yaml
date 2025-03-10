@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: inbal345/consumer
+  repository: inbal345/releaseconsumer
   pullPolicy: "Always"
   tag: "latest"
 
