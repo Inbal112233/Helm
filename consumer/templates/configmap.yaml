@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-consumer-config
 data:
-  myQueue: {{ .Values.configmap.queueName|quote}}
+  myQueue: "{{ .Values.rabbitmq.queueName }}"

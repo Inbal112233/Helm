@@ -31,7 +31,7 @@ spec:
             - name: RABBITMQ_PASSWORD
               value: "{{ .Values.rabbitmq.password }}"
             - name: CONSUMER_QUEUE
-              value: "{{ .Values.consumer.queueName }}"
+              value: "{{ .Values.rabbitmq.queueName }}"
             - name: METRICS_PORT
               value: "{{ .Values.consumer.metricsPort }}"
           ports:

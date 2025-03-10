@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: inbal345/consumer
-  pullPolicy: "IfNotPresent"
+  pullPolicy: "Always"
   tag: "latest"
 
 service:
@@ -11,7 +11,7 @@ service:
 
 consumer:
   metricsPort: "9422"
-  queueName: "pc"
+
 
 rabbitmq:
   host: "my-rabbitmq"
@@ -19,8 +19,9 @@ rabbitmq:
   username: "user"
   password: "2VU5D1rt31"
   queueName: "pc"
-configmap:
-  queueName: "my-queue"
+
+#configmap:
+#  queueName: "my-queue"
 
 
 env:
@@ -38,14 +39,16 @@ ingress:
           pathType: Prefix
   tls: [ ]
 
-resources:
-  limits:
-    cpu: 100m
-    memory: 128Mi
-  requests:
-    cpu: 100m
-    memory: 128Mi
+#resources:
+#  limits:
+#    cpu: 100m
+#    memory: 128Mi
+#  requests:
+#    cpu: 100m
+#    memory: 128Mi
 
 nodeSelector: { }
 tolerations: [ ]
 affinity: { }
+livenessProbe: null
+readinessProbe: null
