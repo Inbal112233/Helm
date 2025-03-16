@@ -14,15 +14,11 @@ consumer:
 
 
 rabbitmq:
-  host: "my-rabbitmq"
+  host: "rabbitmq"
   port: "5672"
-  username: "user"
-  password: "2VU5D1rt31"
+  #username: "rabbitmq_user"
+ # password: "rabbitmq_password"
   queueName: "pc"
-
-#configmap:
-#  queueName: "my-queue"
-
 
 env:
   RABBITMQ_URL: "amqp://username:password@my-rabbitmq:5672/"

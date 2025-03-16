@@ -27,9 +27,15 @@ spec:
             - name: RABBITMQ_PORT
               value: "{{ .Values.rabbitmq.port }}"
             - name: RABBITMQ_USER
-              value: "{{ .Values.rabbitmq.username }}"
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-credentials
+                  key: username
             - name: RABBITMQ_PASSWORD
-              value: "{{ .Values.rabbitmq.password }}"
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-credentials
+                  key: password
             - name: CONSUMER_QUEUE
               value: "{{ .Values.rabbitmq.queueName }}"
             - name: METRICS_PORT
