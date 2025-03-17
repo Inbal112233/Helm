@@ -5,23 +5,31 @@ image:
   pullPolicy: "Always"
   tag: "latest"
 
-service:
-  type: ClusterIP
-  port: 8081
-
-consumer:
-  metricsPort: "9422"
-
+env:
 
 rabbitmq:
-  host: "rabbitmq"
+  auth:
+    username: "touser"
+    password: "totestpass"
+  service:
+    port: 5672
+  persistence:
+    enabled: true
+    storageClass: "standard"
+    size: 1Gi
+  host: "producer-rabbitmq"
   port: "5672"
-  #username: "rabbitmq_user"
- # password: "rabbitmq_password"
   queueName: "pc"
-
-env:
-  RABBITMQ_URL: "amqp://username:password@my-rabbitmq:5672/"
+  message: "Hello From Rabbit!"
+  repeatCount: "20"
+  #extraEnvVars:
+  #  - name: RABBITMQ_SECURE_PASSWORD
+  #    value: "no"  # Temporarily disable secure password for testing
+ports:
+  - name: metrics
+    containerPort: 9422 #for metrics reporting
+#env:
+ # RABBITMQ_URL: "amqp://username:password@my-rabbitmq:5672/"
 
 ingress:
   enabled: true
@@ -34,6 +42,13 @@ ingress:
         - path: /
           pathType: Prefix
   tls: [ ]
+
+service:
+  type: ClusterIP
+  port: 8081
+
+consumer:
+  metricsPort: "9422"
 
 #resources:
 #  limits:

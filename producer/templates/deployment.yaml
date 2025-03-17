@@ -12,22 +12,32 @@ spec:
       labels:
         app: producer
     spec:
+      initContainers:
+        - name: wait-for-rabbitmq
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z producer-rabbitmq 5672; do echo waiting for rabbitmq; sleep 5; done;' ]
       containers:
         - name: producer
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: RABBITMQ_URL
-              value: "{{ .Values.env.url }}"
             - name: RABBITMQ_HOST
               value: "{{ .Values.rabbitmq.host }}"
             - name: RABBITMQ_PORT
               value: "{{ .Values.rabbitmq.port }}"
             - name: RABBITMQ_USER
-              value: "{{ .Values.rabbitmq.username }}"
-            - name: RABBITMQ_PASSWORD
-              value: "{{ .Values.rabbitmq.password }}"
+              value: "{{ .Values.rabbitmq.auth.username }}"
+            - name: RABBITMQ_PASS
+           #   value: "{{ .Values.rabbitmq.auth.password }}"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-rabbitmq
+                  key: rabbitmq-password
             - name: QUEUE_NAME
               value: "{{ .Values.rabbitmq.queueName }}"
             - name: PRODUCER_INTERVAL
               value: "{{ .Values.env.messageIntervals }}"
+          {{- if .Values.resources }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- end }}

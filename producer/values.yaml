@@ -5,49 +5,52 @@ image:
   pullPolicy: Always
   tag: "latest"
 
-service:
-  type: ClusterIP
-  port: 8080
+env:
+  messageIntervals: "20"
 
 rabbitmq:
-  port: "5672"
-  host: "rabbitmq"
- # username: "rabbitmq_user"
-  # password: "rabbitmq_password"
-  queueName: "pc"
-  message: "Hello From Rabbit!"
-  repeatCount: "20"
+  auth:
+    username: "touser"
+    password: "totestpass"
+  service:
+    port: 5672
   persistence:
     enabled: true
     storageClass: "standard"
     size: 1Gi
+  host: "producer-rabbitmq"
+  port: "5672"
+  queueName: "pc"
+  message: "Hello From Rabbit!"
+  repeatCount: "20"
+  #extraEnvVars:
+  #  - name: RABBITMQ_SECURE_PASSWORD
+  #    value: "no"  # Temporarily disable secure password for testing
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
 
-env:
-  url: "amqp://user:password@rabbitmq:5672/"
-  messageIntervals: "20"
+service:
+  type: ClusterIP
+  port: 8080
 
+# ingress not in use for my deployment
 ingress:
-  enabled: true
-  className: nginx
-  annotations:
-    kubernetes.io/ingress.class: nginx
+  enabled: false
+  className: ""
+  annotations: {}
   hosts:
     - host: chart-example.local
       paths:
         - path: /
           pathType: Prefix
-  tls: [ ]
 
-#resources:
-#  limits:
-#    cpu: 100m
-#    memory: 128Mi
-#  requests:
-#    cpu: 100m
-#    memory: 128Mi
-
-nodeSelector: { }
-tolerations: [ ]
-affinity: { }
-livenessProbe: null
-readinessProbe: null
+nodeSelector: {}
+tolerations: []
+affinity: {}
+livenessProbe: null #temporarly remove
+readinessProbe: null #temporarly remove
