@@ -15,7 +15,7 @@ spec:
       containers:
         - name: consumer
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: { { .Values.image.pullPolicy } }
+          imagePullPolicy: "{ { .Values.image.pullPolicy } }"
           env:
             - name: RABBITMQ_HOST
               value: "{{ .Values.rabbitmq.host }}"
@@ -24,18 +24,13 @@ spec:
             - name: RABBITMQ_USER
               value: "{{ .Values.rabbitmq.auth.username }}"
             - name: RABBITMQ_PASS
-              #   value: "{{ .Values.rabbitmq.auth.password }}"
-              valueFrom:
-                secretKeyRef:
-                  name: { { .Release.Name } }-rabbitmq
-                  key: rabbitmq-password
+              value: "{{ .Values.rabbitmq.auth.password }}"
+             # valueFrom:
+              #  secretKeyRef:
+               #   name: credential-rabbitmq
+                #  key: rabbitmq-password
             - name: QUEUE_NAME
               value: "{{ .Values.rabbitmq.queueName }}"
-            - name: PRODUCER_INTERVAL
-              value: "{{ .Values.env.messageIntervals }}"
-        { { - if .Values.resources } }
-          resources:
-            { { - toYaml .Values.resources | nindent 12 } }
-        { { - end } }
+
           ports:
-            - containerPort: {{ .Values.consumer.metricsPort }}
+          - containerPort: {{ .Values.consumer.metricsPort | int }}

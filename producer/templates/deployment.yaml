@@ -28,11 +28,11 @@ spec:
             - name: RABBITMQ_USER
               value: "{{ .Values.rabbitmq.auth.username }}"
             - name: RABBITMQ_PASS
-           #   value: "{{ .Values.rabbitmq.auth.password }}"
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Release.Name }}-rabbitmq
-                  key: rabbitmq-password
+              value: "{{ .Values.rabbitmq.auth.password }}"
+           #   valueFrom:
+            #    secretKeyRef:
+             #     name: credential-rabbitmq
+              #    key: rabbitmq-password
             - name: QUEUE_NAME
               value: "{{ .Values.rabbitmq.queueName }}"
             - name: PRODUCER_INTERVAL

@@ -10,15 +10,15 @@ env:
 
 rabbitmq:
   auth:
-    username: "touser"
-    password: "totestpass"
+    username: "guest"
+    password: "guest"
   service:
     port: 5672
   persistence:
     enabled: true
     storageClass: "standard"
     size: 1Gi
-  host: "producer-rabbitmq"
+  host: "rabbitmq"
   port: "5672"
   queueName: "pc"
   message: "Hello From Rabbit!"
